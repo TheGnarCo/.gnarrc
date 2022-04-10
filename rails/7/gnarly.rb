@@ -2,8 +2,10 @@ require 'open-uri'
 URL_ROOT = "https://raw.githubusercontent.com/TheGnarCo/.gnarrc/main/rails/7/files/"
 
 def sync_file(relative_path)
-  File.open(relative_path, "wb") do |file|
-    file.write open(`#{URL_ROOT}#{relative_path}`).read
+  URI.open(`#{URL_ROOT}#{relative_path}`) do |file|
+    File.open(relative_path, "wb") do |file|
+      file.write(file.read)
+    end
   end
 end
 
@@ -14,7 +16,7 @@ def source_paths
     [__dir__]
 end
 
-def create_gnarly_rails_app
+def create_gnarly_rails_apps
   # This is a really unfortunate, but necessary, line of code that resets the
   # cached Gemfile location so the generated application's Gemfile is used
   # instead of the generators Gemfile.
