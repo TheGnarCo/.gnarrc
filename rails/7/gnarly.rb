@@ -1,10 +1,8 @@
-require 'open-uri'
-URL_ROOT = "https://raw.githubusercontent.com/TheGnarCo/.gnarrc/main/rails/7/files/"
+require "net/http"
 
 def sync_file(relative_path)
-  File.open(relative_path, "wb") do |file|
-    file.write(URI.open(`#{URL_ROOT}#{relative_path}`).read)
-  end
+  uri = URI("https://raw.githubusercontent.com/TheGnarCo/.gnarrc/main/rails/7/files/#{relative_path}")
+  create_file relative_path, Net::HTTP.get(uri)
 end
 
 # Add the current directory to the path Thor uses
@@ -224,7 +222,7 @@ end
 def setup_pronto
   sync_file ".pronto.yml"
 
-  sync_file "templates/bin/pronto", "bin/pronto"
+  sync_file "bin/pronto"
   run "chmod +x bin/pronto"
 
   sync_file ".github/workflows/pronto.yml"
