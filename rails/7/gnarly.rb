@@ -1,5 +1,5 @@
 require 'open-uri'
-URL_ROOT = "https://github.com/TheGnarCo/.gnarrc/main/rails/7/files/"
+URL_ROOT = "https://raw.githubusercontent.com/TheGnarCo/.gnarrc/main/rails/7/files/"
 
 def sync_file(relative_path)
   File.open(relative_path, "wb") do |file|
