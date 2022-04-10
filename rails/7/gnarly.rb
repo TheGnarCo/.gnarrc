@@ -2,10 +2,8 @@ require 'open-uri'
 URL_ROOT = "https://raw.githubusercontent.com/TheGnarCo/.gnarrc/main/rails/7/files/"
 
 def sync_file(relative_path)
-  URI.open(`#{URL_ROOT}#{relative_path}`) do |file|
-    File.open(relative_path, "wb") do |file|
-      file.write(file.read)
-    end
+  File.open(relative_path, "wb") do |file|
+    file.write(URI.open(`#{URL_ROOT}#{relative_path}`).read)
   end
 end
 
