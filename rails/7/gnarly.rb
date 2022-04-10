@@ -14,7 +14,7 @@ def source_paths
     [__dir__]
 end
 
-def create_gnarly_rails_apps
+def create_gnarly_rails_app
   # This is a really unfortunate, but necessary, line of code that resets the
   # cached Gemfile location so the generated application's Gemfile is used
   # instead of the generators Gemfile.
