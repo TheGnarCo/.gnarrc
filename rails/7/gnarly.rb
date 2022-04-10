@@ -18,7 +18,7 @@ def create_gnarly_rails_app
   # This is a really unfortunate, but necessary, line of code that resets the
   # cached Gemfile location so the generated application's Gemfile is used
   # instead of the generators Gemfile.
-  ENV["BUNDLE_GEMFILE" = nil
+  ENV["BUNDLE_GEMFILE"] = nil
 
   # Prevent spring cache when generating application
   ENV["DISABLE_SPRING"] = "true"
@@ -327,7 +327,7 @@ def post_install_instructions
   puts "* Follow the post-install instructions to set up circle to allow gnarbot to comment on PRs."
   puts "  * https://github.com/TheGnarCo/gnarails#post-install"
   puts "=========="
-  puts "* Make sure your package.json has the following scripts:
+  puts "* Make sure your package.json has the following scripts:"
   puts "* \`\"build\": \"node esbuild.config.js\"\`"
   puts "* \`\"build:css\": \"sass ./app/assets/stylesheets/application.sass.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules\"\`"
 end
