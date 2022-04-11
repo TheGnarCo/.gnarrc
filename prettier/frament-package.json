@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "prettify": "prettier '*.{js,ts,tsx}' '{src,app,__tests__}/**/*.{js,ts,tsx}' --write"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx,json,css,md}": ["prettier --write"]
+  }
+}

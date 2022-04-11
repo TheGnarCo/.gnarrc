@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "lint": "eslint . -c .eslintrc.json"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": "eslint . -c .eslintrc.json --cache --fix"
+  }
+}
