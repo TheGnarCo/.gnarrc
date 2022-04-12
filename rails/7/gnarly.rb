@@ -331,7 +331,7 @@ def post_install_instructions
 end
 
 def format_ruby
-  run "bin/rubocop -A"
+  run "bin/rubocop -A --fail-level error"
 end
 
 def completion_notification
