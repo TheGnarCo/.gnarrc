@@ -1,0 +1,10 @@
+---
+# These are the default config values for BetterHTML.
+partial_tag_name_pattern: /\A[a-z0-9\-\:]+\z/
+partial_attribute_name_pattern:  /\A[a-zA-Z0-9\-\:]+\z/
+allow_single_quoted_attributes: true
+allow_unquoted_attributes: false
+javascript_safe_methods: ['to_json']
+lodash_safe_javascript_expression: [/\AJSON\.stringify\(/]
+javascript_attribute_names: [/\Aon/i]
+template_exclusion_filter: nil
