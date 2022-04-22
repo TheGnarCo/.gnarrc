@@ -46,24 +46,48 @@ def create_gnarly_rails_app
 end
 
 def add_gems
-  gem_group :development, :test do
+  gem_group :external_integrations, :development, :test do
+    gem 'faraday'
+  end
+
+  gem_group :better_rails_views, :development, :test do
+    gem 'better_html', require: false
+    gem 'erb_lint', require: false
+  end
+
+  gem_group :ci, :development, :test do
+    gem 'pronto'
+    gem 'pronto-rubocop', require: false
+    gem 'pronto-brakeman', require: false
+    gem 'pronto-erb_lint', require: false
+    gem 'gnar-style', require: false
+    gem 'rubocop-rspec', require: false
+  end
+
+  # I like groups.
+  gem_group :system_tests, :test do
     gem 'axe-core-capybara'
     gem 'axe-core-rspec'
+    gem 'capybara'
+    gem 'selenium-webdriver'
+  end
+
+  gem_group :rspec_tests, :test, :development do
+    gem "factory_bot_rails"
+    gem "rspec-json_expectations"
+    gem "rspec-rails"
+    gem "shoulda-matchers"
+    gem 'test-prof'
+    gem 'simplecov', require: false
+  end
+
+  gem_group :development, :test do
     gem 'bullet'
     gem 'dotenv-rails'
-    gem 'factory_bot_rails'
-    gem 'gnar-style', require: false
     gem 'launchy'
     gem 'lol_dba'
     gem 'okcomputer'
-    gem 'pronto'
-    gem 'pronto-rubocop', require: false
-    gem 'pry-byebug'
     gem 'pry-rails'
-    gem 'rspec-rails', '~> 5'
-    gem 'rubocop-rspec', require: false
-    gem 'shoulda-matchers'
-    gem 'simplecov', require: false
   end
 end
 
