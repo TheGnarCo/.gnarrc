@@ -1,0 +1,30 @@
+name: Pronto
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  pronto:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      statuses: write
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - run: |
+          git fetch --no-tags --prune --depth=10 origin +refs/heads/*:refs/remotes/origin/*
+
+      - name: Setup Ruby and install gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Run Pronto
+        env:
+          PRONTO_PULL_REQUEST_ID: ${{ github.event.pull_request.number }}
+          PRONTO_GITHUB_SLUG: ${{ github.repository }}
+          PRONTO_GITHUB_ACCESS_TOKEN: "${{ github.token }}"
+        run: |
+          bin/pronto run -c origin/${{ github.base_ref }} -f text github_pr_review github_status

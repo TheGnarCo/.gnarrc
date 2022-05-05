@@ -1,0 +1,6 @@
+--asset-pipeline=propshaft
+--skip-test-unit
+--css=sass
+--javascript=esbuild
+--database=postgresql
+--template=https://raw.githubusercontent.com/TheGnarCo/.gnarrc/main/rails/7/propshaft/gnarly.rb
