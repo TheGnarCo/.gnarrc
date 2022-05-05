@@ -50,7 +50,6 @@ end
 def add_gems
   gem_group :development, :test do
     gem "axe-core-capybara"
-    gem 'stimulus-rails'
     gem "axe-core-rspec"
     gem "bullet"
     gem "dotenv-rails"
