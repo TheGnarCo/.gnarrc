@@ -1,7 +1,11 @@
 require "net/http"
 
 def sync_file(relative_path)
-  uri = URI("https://raw.githubusercontent.com/TheGnarCo/.gnarrc/main/rails/7/sprockets/files/#{relative_path}")
+  # uri = URI("https://raw.githubusercontent.com/TheGnarCo/.gnarrc/main/rails/7/sprockets/files/#{relative_path}")
+  # TEMP - Testing
+  uri = URI("https://github.com/TheGnarCo/.gnarrc/blob/aj-consider-a-simpler-approach/rails/7/sprockets/files/#{relative_path}")
+  # TEMP - Testing
+
   create_file relative_path, Net::HTTP.get(uri)
 end
 

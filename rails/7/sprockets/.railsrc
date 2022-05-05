@@ -1,4 +1,3 @@
 --skip-test-unit
---css=sass
 --database=postgresql
 --template=https://raw.githubusercontent.com/TheGnarCo/.gnarrc/main/rails/7/sprockets/gnarly.rb
