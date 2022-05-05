@@ -46,6 +46,7 @@ end
 def add_gems
   gem_group :development, :test do
     gem "axe-core-capybara"
+    gem 'stimulus-rails'
     gem "axe-core-rspec"
     gem "bullet"
     gem "dotenv-rails"
@@ -74,10 +75,7 @@ def setup_database
 end
 
 def setup_assets
-  run "yarn add esbuild-rails"
-  remove_file "esbuild.config.js"
-  sync_file 'esbuild.config.js'
-  run "npm set-script build 'node esbuild.config.js'"
+  "./bin/rails stimulus:install"
 end
 
 def setup_gitignore
@@ -325,9 +323,6 @@ def post_install_instructions
   puts "* Follow the post-install instructions to set up circle to allow gnarbot to comment on PRs."
   puts "  * https://github.com/TheGnarCo/gnarails#post-install"
   puts "=========="
-  puts "* Make sure your package.json has the following scripts:"
-  puts "* \`\"build\": \"node esbuild.config.js\"\`"
-  puts "* \`\"build:css\": \"sass ./app/assets/stylesheets/application.sass.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules\"\`"
 end
 
 def format_ruby
