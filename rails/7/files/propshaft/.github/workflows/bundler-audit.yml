@@ -1,0 +1,19 @@
+name: Bundler Audit
+
+on: [push]
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        bundler-cache: true
+
+    - run: |
+        gem install bundle-audit
+        bundle-audit update
+        bundle-audit check

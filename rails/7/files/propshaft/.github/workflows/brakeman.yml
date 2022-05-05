@@ -1,0 +1,22 @@
+name: Brakeman
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        bundler-cache: true
+
+    - name: Brakeman
+      run: |
+        gem install brakeman --no-document
+        brakeman --exit-on-warn --separate-models -o tmp/brakeman.html -o tmp/brakeman.text .
+        brakeman_exit_code=$?
+        cat tmp/brakeman.text
+        exit $brakeman_exit_code
