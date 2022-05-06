@@ -58,8 +58,7 @@ def add_gems
     gem "pronto-rubocop", require: false
     gem "pry-byebug"
     gem "pry-rails"
-    gem "rspec-its"
-    gem "rspec-rails", "~> 4"
+    gem "rspec-rails", "~> 5"
     gem "rubocop-rspec", require: false
     gem "shoulda-matchers"
     gem "simplecov", require: false
