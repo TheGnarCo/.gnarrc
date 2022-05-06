@@ -1,2 +1,0 @@
-github_pr:
-  format: "%{runner}: %{msg}"

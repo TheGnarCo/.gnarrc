@@ -1,3 +1,0 @@
-inherit_gem:
-  gnar-style:
-    - "rubocop/rubocop_rails.yml"

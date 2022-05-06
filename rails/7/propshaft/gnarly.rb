@@ -5,6 +5,11 @@ def sync_file(relative_path)
   create_file relative_path, Net::HTTP.get(uri)
 end
 
+def sync_shared_file(relative_path)
+  uri = URI("https://raw.githubusercontent.com/TheGnarCo/.gnarrc/main/rails/7/shared/#{relative_path}")
+  create_file relative_path, Net::HTTP.get(uri)
+end
+
 # Add the current directory to the path Thor uses
 # to look up files
 def source_paths
@@ -68,7 +73,7 @@ end
 
 def setup_database
   remove_file "config/database.yml"
-  sync_file "config/database.yml"
+  sync_shared_file "config/database.yml"
   gsub_file "config/database.yml", "__application_name__", app_name
   gsub_file "Gemfile", /.*sqlite.*\n/, ""
 end
@@ -104,18 +109,18 @@ end
 def setup_rspec
   generate "rspec:install"
   remove_file ".rspec"
-  sync_file ".rspec"
+  sync_shared_file ".rspec"
   gsub_file "spec/rails_helper.rb",
     /# Dir\[Rails\.root\.join.*/,
     "Dir[Rails.root.join(\"spec/support/**/*.rb\")].each { |f| require f }"
 end
 
 def setup_factory_bot
-  sync_file "spec/support/factory_bot.rb"
+  sync_shared_file "spec/support/factory_bot.rb"
 end
 
 def setup_system_tests
-  sync_file "spec/support/system_test_configuration.rb"
+  sync_shared_file "spec/support/system_test_configuration.rb"
 
   insert_into_file "spec/rails_helper.rb", after: "Rails is not loaded until this point!\n" do
     system_tests_rails_helper_text
@@ -205,27 +210,27 @@ end
 
 def setup_binstubs
   remove_file "bin/setup"
-  sync_file "bin/setup"
+  sync_shared_file "bin/setup"
   run "chmod +x bin/setup"
 
-  sync_file "bin/rspec"
+  sync_shared_file "bin/rspec"
   run "chmod +x bin/rspec"
 
-  sync_file "bin/rubocop"
+  sync_shared_file "bin/rubocop"
   run "chmod +x bin/rubocop"
 end
 
 def setup_linting
-  sync_file ".rubocop.yml"
+  sync_shared_file ".rubocop.yml"
 end
 
 def setup_pronto
-  sync_file ".pronto.yml"
+  sync_shared_file ".pronto.yml"
 
-  sync_file "bin/pronto"
+  sync_shared_file "bin/pronto"
   run "chmod +x bin/pronto"
 
-  sync_file ".github/workflows/pronto.yml"
+  sync_shared_file ".github/workflows/pronto.yml"
 end
 
 def setup_simplecov
@@ -254,39 +259,39 @@ def setup_environments
 end
 
 def setup_dotenv
-  sync_file ".env.development"
-  sync_file ".env.test"
+  sync_shared_file ".env.development"
+  sync_shared_file ".env.test"
   gsub_file ".env.development", "__application_name__", app_name
   gsub_file ".env.test", "__application_name__", app_name
 end
 
 def setup_github_workflows
-  sync_file ".github/workflows/run-tests.yml"
-  sync_file ".github/workflows/brakeman.yml"
+  sync_shared_file ".github/workflows/run-tests.yml"
+  sync_shared_file ".github/workflows/brakeman.yml"
 
-  sync_file ".github/actions/test-rails/action.yml"
-  sync_file ".github/workflows/bundler-audit.yml"
+  sync_shared_file ".github/actions/test-rails/action.yml"
+  sync_shared_file ".github/workflows/bundler-audit.yml"
 end
 
 def setup_docker
-  sync_file "Dockerfile"
+  sync_shared_file "Dockerfile"
   gsub_file "Dockerfile", "__ruby_version__", RUBY_VERSION
 
   setup_docker_standard
 end
 
 def setup_procfile
-  sync_file "Procfile"
+  sync_shared_file "Procfile"
 end
 
 def setup_docker_standard
-  sync_file ".env.docker"
-  sync_file "docker-compose.yml"
+  sync_shared_file ".env.docker"
+  sync_shared_file "docker-compose.yml"
 end
 
 def setup_readme
   remove_file "README.md"
-  sync_file "README.md"
+  sync_shared_file "README.md"
   gsub_file "README.md", "__application_name__", app_name
 end
 
