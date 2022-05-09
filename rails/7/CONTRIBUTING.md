@@ -18,6 +18,6 @@ If your change doesn't fundamentally alter the structure of the directories, the
 
 This repo does not use SemVer...kind of. The tags are based on date.
 
-For instance, the initial release used the tag `v22.05.08`, for "March 5th, 2022". This format means that we are technically using semVer formatting (and get the benefit of auto-sorting via semver - the "latest" version will always be the highest) but we aren't sticking to semVer contexts (a "Major" update bump does not mean "Major breaking changes", it means "A new year".)
+For instance, the initial release used the tag `v22.05.08`, for "May 8th, 2022". This format means that we are technically using semVer formatting (and get the benefit of auto-sorting via semver - the "latest" version will always be the highest) but we aren't sticking to semVer contexts (a "Major" update bump does not mean "Major breaking changes", it means "A new year".)
 
 A new release should be cut from any successful merge to the `prod-cli` branch.
