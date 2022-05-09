@@ -13,3 +13,11 @@ However, for `gnar-cli` to directly from `main` would make changing this repo a 
 Instead, we have the `prod-cli` branch, which exists as a sort of pseudo-production. `gnar-cli` will soon pull directly from this branch, allowing us to get squirrely on main and then strategically "deploy" directory changes to coincide with new releases of `gnar-cli`.
 
 If your change doesn't fundamentally alter the structure of the directories, then it's safe to just push it directly to `prod-cli`.
+
+### A note on Versions
+
+This repo does not use SemVer...kind of. The tags are based on date.
+
+For instance, the initial release used the tag `v22.05.08`, for "March 5th, 2022". This format means that we are technically using semVer formatting (and get the benefit of auto-sorting via semver - the "latest" version will always be the highest) but we aren't sticking to semVer contexts (a "Major" update bump does not mean "Major breaking changes", it means "A new year".)
+
+A new release should be cut from any successful merge to the `prod-cli` branch.
