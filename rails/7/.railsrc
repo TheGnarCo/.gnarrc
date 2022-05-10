@@ -3,4 +3,4 @@
 --css=sass
 --javascript=esbuild
 --database=postgresql
---template=https://raw.githubusercontent.com/TheGnarCo/.gnarrc/main/rails/7/gnarly.rb
+--template=https://raw.githubusercontent.com/TheGnarCo/.gnarrc/prod-cli/rails/7/gnarly.rb
