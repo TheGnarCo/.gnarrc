@@ -22,4 +22,4 @@ These may change over time, or get more traditional names, rather than these cho
 
 ### How do I Contribute?
 
-See [CONTRIBUTING.MD](/CONTRIBUTING.MD)
+See [CONTRIBUTING.MD](/CONTRIBUTING.md)
