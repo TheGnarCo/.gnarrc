@@ -64,7 +64,6 @@ def add_gems
     gem 'rubocop-rspec', require: false
   end
 
-  # I like groups.
   gem_group :system_tests, :test do
     gem 'axe-core-capybara'
     gem 'axe-core-rspec'
