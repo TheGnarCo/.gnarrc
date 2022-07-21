@@ -7,6 +7,13 @@ def sync_file(relative_path)
   create_file relative_path, Net::HTTP.get(uri)
 end
 
+def sync_workflow(workflow_filename)
+  uri = URI("https://raw.githubusercontent.com/TheGnarCo/.github/main/workflow-templates/#{workflow_filename}")
+  local_workflow_filename = ".github/workflows/#{workflow_filename}"
+  create_file local_workflow_filename, Net::HTTP.get(uri)
+  gsub_file local_workflow_filename, "$default-branch", "main"
+end
+
 # Add the current directory to the path Thor uses
 # to look up files
 def source_paths
@@ -28,22 +35,21 @@ def create_gnarly_rails_app
   run_bundle
 
   after_bundle do
+    git :init
+    setup_gitignore
     setup_testing
-    setup_binstubs
     setup_database
     setup_assets
-    setup_gitignore
     setup_linting
     setup_pronto
     setup_simplecov
     setup_environments
     setup_readme
-    remove_dir 'test'
-    git :init
     format_ruby
     completion_notification
   end
 end
+
 
 def add_gems
   gem_group :development, :test do
@@ -52,12 +58,9 @@ def add_gems
     gem 'bullet'
     gem 'dotenv-rails'
     gem 'factory_bot_rails'
-    gem 'gnar-style', require: false
     gem 'launchy'
     gem 'lol_dba'
     gem 'okcomputer'
-    gem 'pronto'
-    gem 'pronto-rubocop', require: false
     gem 'pry-byebug'
     gem 'pry-rails'
     gem 'rspec-rails', '~> 5'
@@ -65,20 +68,6 @@ def add_gems
     gem 'shoulda-matchers'
     gem 'simplecov', require: false
   end
-end
-
-def setup_database
-  remove_file 'config/database.yml'
-  sync_file 'config/database.yml'
-  gsub_file 'config/database.yml', '__application_name__', app_name
-  gsub_file 'Gemfile', /.*sqlite.*\n/, ''
-end
-
-def setup_assets
-  run 'yarn add esbuild-rails'
-  remove_file 'esbuild.config.js'
-  sync_file 'esbuild.config.js'
-  run "npm set-script build 'node esbuild.config.js'"
 end
 
 def setup_gitignore
@@ -100,6 +89,7 @@ def setup_testing
   setup_shoulda
   setup_bullet
   limit_test_logging
+  remove_dir 'test'
 end
 
 def setup_rspec
@@ -141,6 +131,7 @@ def setup_shoulda
     shoulda_rails_helper_text
   end
 end
+
 
 def shoulda_rails_helper_text
   <<~SHOULDA
@@ -204,16 +195,22 @@ def limit_test_logging
   end
 end
 
-def setup_binstubs
+def setup_database
+  remove_file 'config/database.yml'
+  sync_file 'config/database.yml'
+  gsub_file 'config/database.yml', '__application_name__', app_name
+  gsub_file 'Gemfile', /.*sqlite.*\n/, ''
+
   remove_file 'bin/setup'
   sync_file 'bin/setup'
   run 'chmod +x bin/setup'
+end
 
-  sync_file 'bin/rspec'
-  run 'chmod +x bin/rspec'
-
-  sync_file 'bin/rubocop'
-  run 'chmod +x bin/rubocop'
+def setup_assets
+  run 'yarn add esbuild-rails'
+  remove_file 'esbuild.config.js'
+  sync_file 'esbuild.config.js'
+  run "npm set-script build 'node esbuild.config.js'"
 end
 
 def setup_linting
@@ -222,11 +219,7 @@ end
 
 def setup_pronto
   sync_file '.pronto.yml'
-
-  sync_file 'bin/pronto'
-  run 'chmod +x bin/pronto'
-
-  sync_file '.github/workflows/pronto.yml'
+  sync_workflow 'gnarly-pronto.yml'
 end
 
 def setup_simplecov
@@ -262,11 +255,9 @@ def setup_dotenv
 end
 
 def setup_github_workflows
-  sync_file '.github/workflows/run-tests.yml'
-  sync_file '.github/workflows/brakeman.yml'
-
-  sync_file '.github/actions/test-rails/action.yml'
-  sync_file '.github/workflows/bundler-audit.yml'
+  sync_workflow 'gnarly-rails-tests.yml'
+  sync_workflow 'gnarly-pronto.yml'
+  sync_workflow 'gnarly-bundler-audit.yml'
 end
 
 def setup_docker
@@ -345,12 +336,12 @@ def post_install_instructions
 end
 
 def format_ruby
-  run 'bin/rubocop -A --fail-level error'
+  run 'bundle exec rubocop -A --fail-level error'
 end
 
 def completion_notification
   puts ''
-  ascii_art
+  puts ascii_art
   post_install_instructions
 end
 
