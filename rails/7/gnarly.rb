@@ -297,6 +297,7 @@ end
 
 def ascii_art
   <<~ASCII
+
               _____                    _____                    _____                    _____
              /\    \                  /\    \                  /\    \                  /\    \
             /::\    \                /::\____\                /::\    \                /::\    \
@@ -340,9 +341,8 @@ def format_ruby
 end
 
 def completion_notification
-  puts ''
   puts ascii_art
-  post_install_instructions
+  puts post_install_instructions
 end
 
 create_gnarly_rails_app
