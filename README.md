@@ -23,3 +23,9 @@ These may change over time, or get more traditional names, rather than these cho
 ### How do I Contribute?
 
 See [CONTRIBUTING.MD](/CONTRIBUTING.md)
+
+## About The Gnar Company
+
+![The Gnar Company](https://avatars0.githubusercontent.com/u/17011419?s=100&v=4)
+
+If you’re ready to dream it, we’re ready to build it. The Gnar is a custom software company ready to tackle your biggest challenges. Visit [The Gnar Company website](https://www.thegnar.com/) to learn more about us or [contact us](https://www.thegnar.com/contact) to see how we can help design and develop your product.
